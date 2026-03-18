@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 70%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 3px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        li {
+            list-style: none;
+            background: #ecf0f1;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>To-Do List</h2>
+
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button class="add-btn" onclick="addTask()">Add</button>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value;
+
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+            // Create list item
+            let li = document.createElement("li");
+            li.innerHTML = taskText;
+
+            // Edit button
+            let editBtn = document.createElement("button");
+            editBtn.innerHTML = "Edit";
+            editBtn.className = "edit-btn";
+            editBtn.onclick = function () {
+                let newTask = prompt("Edit your task:", li.firstChild.textContent);
+                if (newTask !== null && newTask !== "") {
+                    li.firstChild.textContent = newTask;
+                }
+            };
+            // Delete button
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = "Delete";
+            deleteBtn.className = "delete-btn";
+            deleteBtn.onclick = function () {
+                li.remove();
+            };
+            // Append buttons to list item
+            li.appendChild(editBtn);
+            li.appendChild(deleteBtn);
+            // Append list item to ul
+            document.getElementById("taskList").appendChild(li);
+            // Clear input
+            taskInput.value = "";
+        }
+    </script>
+</body>
+</html>
